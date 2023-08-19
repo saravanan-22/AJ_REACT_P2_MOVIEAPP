@@ -1,0 +1,809 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body,
+html {
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.login_main {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 5.6em;
+}
+
+.register-page {
+  width: auto;
+  height: auto;
+  padding: 0.5em 0;
+}
+
+@media (max-width: 576.99px) {
+  /* Header.css */
+  /* Add space between buttons */
+  .categories > a,
+  .categories > button {
+    margin-bottom: 10px;
+  }
+
+  .header-btn {
+    color: #000000;
+  }
+  .login-card {
+    width: clamp(260px, 80vw, 70%);
+    margin: auto;
+  }
+
+  .login-button {
+    width: clamp(227px, 80vw, 100%);
+  }
+
+  /* Register page content */
+
+  .register-card {
+    width: clamp(250px, 70vw, 70%);
+    margin: auto;
+  }
+
+  .register-button {
+    width: clamp(217px, 80vw, 100%);
+  }
+
+  /* movie image */
+  .media {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 165px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    aspect-ratio: 4/3;
+  }
+
+  .media:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+  }
+
+  /* Poster and Title */
+  .poster {
+    border-radius: 10px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 8px 0;
+  }
+
+  .subTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    padding-bottom: 3px;
+  }
+
+  .media-content {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Home */
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 2vw;
+    padding: 4px;
+    border-radius: 50px;
+    color: #000000;
+  }
+
+  /* Style the selected button differently */
+  .selected {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+
+  .poster {
+    max-height: 350px;
+  }
+
+  .title-wrapper {
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .title {
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .media-info {
+    display: flex;
+    justify-content: center;
+    font-size: 10px;
+    color: #ccc;
+  }
+
+  .contentModal {
+    display: grid;
+  }
+
+  .contentModal_title {
+    font-size: 20px;
+  }
+
+  /* #condentModal */
+  .ContentModal__landscape {
+    /* object-fit: contain; */
+    border-radius: 10px;
+  }
+
+  .ContentModal__portrait {
+    display: none;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .tagline {
+    padding-bottom: 30px;
+    align-self: center;
+  }
+
+  .ContentModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .ContentModal::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ContentModal__about {
+    padding: 10px;
+    width: 95%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+    justify-content: space-evenly;
+    font-weight: 300;
+    font-size: 15px;
+  }
+
+  .ContentModal__title {
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    /* margin-bottom: 2px; */
+  }
+
+  .ContentModal__description {
+    display: none;
+    height: fit-content;
+    overflow-y: scroll;
+    padding: 15px;
+    border-radius: 20px;
+    scrollbar-width: thin;
+    box-shadow: inset 0 0 5px #000000;
+    text-align: justify;
+    font-size: 12px;
+  }
+
+  .ContentModal__description::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* #carousal */
+
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carouselItem__img {
+    width: 70px;
+    height: 100px;
+    /* object-fit: cover; */
+    border-radius: 8px;
+  }
+
+  .carouselItem__txt {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768.99px) {
+  /* Header.css */
+  /* Add space between buttons */
+  .categories > a,
+  .categories > button {
+    margin-bottom: 10px;
+  }
+
+  .header-btn {
+    color: #000000;
+  }
+  .login-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .login-button {
+    width: 22em;
+  }
+
+  /* Register page content */
+
+  .register-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .register-button {
+    width: 22em;
+  }
+
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carouselItem__img {
+    width: clamp(80px, 70vw, 100px);
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carouselItem__txt {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+
+  /* movies */
+
+  .media {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 160px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    aspect-ratio: 4/3;
+  }
+
+  .media:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+  }
+
+  /* Poster and Title */
+  .poster {
+    border-radius: 10px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 5px 0;
+  }
+
+  .subTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    padding-bottom: 3px;
+  }
+
+  .media-content {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Home */
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    padding: 4px;
+    border-radius: 50px;
+    color: #000000;
+  }
+
+  /* Style the selected button differently */
+  .selected {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+
+  .poster {
+    max-height: 350px;
+  }
+
+  .title-wrapper {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .title {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  .media-info {
+    display: flex;
+    justify-content: center;
+    font-size: 11px;
+    color: #ccc;
+  }
+
+  /* #condentModal */
+  .ContentModal__landscape {
+    /* object-fit: contain; */
+    border-radius: 10px;
+  }
+
+  .ContentModal__portrait {
+    display: none;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .tagline {
+    padding-bottom: 30px;
+    align-self: center;
+  }
+
+  .ContentModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .ContentModal::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ContentModal__about {
+    padding: 10px;
+    width: 95%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", sans-serif;
+    justify-content: space-evenly;
+    font-weight: 300;
+    font-size: 15px;
+  }
+
+  .ContentModal__title {
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    /* margin-bottom: 2px; */
+  }
+
+  .ContentModal__description {
+    display: flex;
+    height: auto;
+    overflow-y: scroll;
+    padding: 15px;
+    border-radius: 20px;
+    scrollbar-width: thin;
+    box-shadow: inset 0 0 5px #000000;
+    text-align: justify;
+    font-size: 16px;
+  }
+
+  .ContentModal__description::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* #carousal */
+
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carouselItem__img {
+    width: auto;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carouselItem__txt {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992.99px) {
+  /* Header.css */
+  /* Add space between buttons */
+  .categories > a,
+  .categories > button {
+    margin-bottom: 10px;
+  }
+
+  .header-btn {
+    color: #000000;
+  }
+
+  .login-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .login-button {
+    width: 22em;
+  }
+
+  /* Register page content */
+
+  .register-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .register-button {
+    width: 22em;
+  }
+
+  /* Carousel.css */
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carouselItem__img {
+    width: 13vw;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carouselItem__txt {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+  .media {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 170px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    aspect-ratio: 4/3;
+  }
+
+  .media:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+  }
+
+  /* Poster and Title */
+  .poster {
+    border-radius: 10px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 8px 0;
+  }
+
+  .subTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    padding-bottom: 3px;
+  }
+
+  .media-content {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Home */
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    padding: 4px;
+    border-radius: 50px;
+    color: #000000;
+  }
+
+  /* @media (max-width: 1000px) {
+    .pageTitle {
+      font-size: 6.4vw;
+    }
+  } */
+
+  /* Style the selected button differently */
+  .selected {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+
+  .poster {
+    max-height: 350px;
+  }
+
+  .title-wrapper {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .title {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  .media-info {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #ccc;
+  }
+  .ContentModal__description {
+    font-size: large;
+  }
+}
+
+@media (min-width: 993px) {
+  /* Header.css */
+  /* Add space between buttons */
+  .categories > a,
+  .categories > button {
+    margin-right: 10px;
+  }
+
+  /* Login page content */
+
+  .login-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .login-button {
+    width: 22em;
+  }
+
+  /* Register page content */
+
+  .register-card {
+    width: 24em;
+    margin: auto;
+  }
+
+  .register-button {
+    width: 22em;
+  }
+
+  /* Carousel.css */
+
+  .carouselItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .carouselItem__img {
+    width: 10vw;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carouselItem__txt {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+
+  /* Common styles for media and single product */
+  .media {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 170px;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 10px;
+    position: relative;
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    aspect-ratio: 4/3;
+  }
+
+  .media:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+  }
+
+  /* Poster and Title */
+  .poster {
+    border-radius: 10px;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 17px;
+    padding: 8px 0;
+  }
+
+  .subTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2px;
+    padding-bottom: 3px;
+  }
+
+  .media-content {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* Home */
+  .movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .pageTitle {
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    padding: 4px;
+    border-radius: 50px;
+    color: #000000;
+  }
+
+  /* Style the selected button differently */
+  .selected {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+  }
+
+  .poster {
+    max-height: 350px;
+  }
+
+  .title-wrapper {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  .media-info {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    color: #ccc;
+  }
+}
