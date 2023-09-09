@@ -7,6 +7,7 @@ import { img_300, noPicture } from "../Context/Context";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import image from "./image/background.jpg"
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
@@ -57,9 +58,25 @@ const LoginPage = () => {
     fetchMovies();
   }, []);
 
+  const setDefaultValues = (e) => {
+    e.preventDefault();
+    setEmail("rsaravanan0366@gmail.com");
+    setPassword("123456");
+    console.log("Default values set");
+  };
+
   return (
     <div
-      style={{ minHeight: "100vh", position: "relative" }}
+    style={{
+      backgroundImage: `url(${image})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
       className="login_main bg-black"
     >
       <section>
@@ -80,6 +97,7 @@ const LoginPage = () => {
                     type="email"
                     placeholder="Email"
                     required
+                    value={email} 
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -96,6 +114,7 @@ const LoginPage = () => {
                     type="password"
                     placeholder="Password"
                     required
+                    value={password} 
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Form.Control.Feedback type="invalid">
@@ -121,6 +140,17 @@ const LoginPage = () => {
               Don't have an account? <Link to="/RegisterPage">Sign up</Link>
             </p>
           </Card.Body>
+          <h6 className="m-auto"> 
+            user credentials!{" "}
+            <Button
+              variant="outline-dark"
+              size="sm"
+              style={{ textDecoration: "underline" }}
+              onClick={setDefaultValues}
+            >
+              Login
+            </Button>
+          </h6>
         </Card>
       </section>
     </div>

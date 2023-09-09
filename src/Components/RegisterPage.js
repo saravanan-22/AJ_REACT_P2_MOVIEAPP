@@ -8,6 +8,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { img_300, noPicture } from "../Context/Context";
+import image from "./image/background.jpg"
 
 export const RegisterPage = () => {
   const [validated, setValidated] = useState(false);
@@ -79,7 +80,19 @@ export const RegisterPage = () => {
   }, []);
 
   return (
-    <div className="register-page bg-black">
+    <div
+      style={{
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+      className="register-page bg-black"
+    >
       <section>
         <Card className="register-card">
           <Card.Body>
