@@ -1,0 +1,105 @@
+@keyframes color-fade {
+    0% {
+      color: gold;
+    }
+    50% {
+      color: transparent;
+    }
+    100% {
+      color: gold;
+    }
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 330px;
+    margin: 0 auto;
+  }
+  
+  .icon-container svg {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+    animation: color-fade 3s infinite alternate; /* Apply the color fade animation with alternate direction */
+  }
+  
+  .icon-container svg:nth-child(1) {
+    animation-delay: 0.1s; 
+  }
+  
+  .icon-container svg:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  .icon-container svg:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+
+  .icon-container svg:nth-child(4) {
+    animation-delay: 0.7s;
+  }
+
+
+  .icon-container svg:nth-child(5) {
+    animation-delay: 0.9s;
+  }
+
+  .icon-container svg:nth-child(6) {
+    animation-delay: 0.11s;
+  }
+
+  .icon-container svg:nth-child(7) {
+    animation-delay: 0.13s;
+  }
+  
+  /* Repeat the pattern for other icons, adjusting the delay as needed */
+  
+  .icon-container svg:hover {
+    transform: scale(1.2);
+    animation: none;
+    cursor: pointer;
+    color: #FFD700;
+  }
+  
+ 
+
+  .glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 5; 
+    border-radius: 10px;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 10px 5px #ff0000, 0 0 30px 5px #ff7300, 0 0 40px 5px #fffb00, 0 0 50px 5px #48ff00, 0 0 60px 5px #00ffd5, 0 0 70px 5px #002bff, 0 0 80px 5px #7a00ff, 0 0 90px 5px #ff00c8, 0 0 100px 5px #ff0000;
+  transition: box-shadow 0.5s ease;
+}
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}

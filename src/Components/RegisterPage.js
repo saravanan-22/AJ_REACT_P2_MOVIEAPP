@@ -8,7 +8,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { img_300, noPicture } from "../Context/Context";
-import image from "./image/background.jpg"
+import image from "./image/background.jpg";
 
 export const RegisterPage = () => {
   const [validated, setValidated] = useState(false);
@@ -21,6 +21,21 @@ export const RegisterPage = () => {
   const [uid, setUid] = useState("");
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
+
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+       
+        const base64String = reader.result;
+        setProfilePhoto(base64String); 
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,14 +66,10 @@ export const RegisterPage = () => {
         email: email,
         password: password,
         phoneNumber: phoneNumber,
+        profilePhoto: profilePhoto,
       });
-
-      if (profilePhoto) {
-        const profilePhotoUrl = "YOUR_PROFILE_PHOTO_URL";
-        set(ref(db, "users/" + uid + "/profilePhoto"), profilePhotoUrl);
-      }
       alert("Account Created Successfully");
-      navigate("/");
+      navigate("/LoginPage");
     } catch (error) {
       alert(error.message);
     }
@@ -79,6 +90,7 @@ export const RegisterPage = () => {
     fetchMovies();
   }, []);
 
+ 
   return (
     <div
       style={{
@@ -180,15 +192,14 @@ export const RegisterPage = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="validationCustomPhoto">
-                  <Form.Label>Profile Photo</Form.Label>
-                  <Form.Control
+                <span className="mb-2">
+                  Add Profile Picture
+                  <input
                     type="file"
                     accept="image/*"
-                    required
-                    onChange={(e) => setProfilePhoto(e.target.files[0])}
+                    onChange={handleImageUpload}
                   />
-                </Form.Group>
+                </span>
 
                 <Button
                   type="submit"
@@ -201,7 +212,7 @@ export const RegisterPage = () => {
             </Card.Text>
             <hr />
             <p className="p-0 m-0 text-center">
-              Have an account? <Link to="/">Login</Link>
+              Have an account? <Link to="/LoginPage">Login</Link>
             </p>
           </Card.Body>
         </Card>

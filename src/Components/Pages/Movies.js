@@ -26,7 +26,7 @@ const Movies = () => {
         url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&page=${page}&with_genres=${genreforURL}`;
       }
       const { data } = await Axios.get(url);
-      console.log(data);
+      // console.log(data);
       setContent(data.results);
       setNumOfPages(Math.min(data.total_pages, 500));
     } catch (error) {

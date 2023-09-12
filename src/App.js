@@ -2,7 +2,6 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
-import LoginPage from "./Components/LoginPage";
 import { RegisterPage } from "./Components/RegisterPage";
 import Movies from "./Components/Pages/Movies";
 import Trending from "./Components/Pages/Trending";
@@ -13,6 +12,7 @@ import TvSeries from "./Components/Pages/TvSeries";
 import ContentModal from "./Components/ContentModal";
 import ProfilePage from "./Components/Pages/ProfilePage";
 import ForgotPassword from "./Components/ForgotPassword";
+import LoginPage from "./Components/LoginPage"
 
 function App() {
   return (
@@ -21,7 +21,8 @@ function App() {
         <Header />
         <Routes>
           {/* <Route path="/" element={<HomePage />} /> */}
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} /> 
+          <Route path="/LoginPage" element={<LoginPage/>} />
           <Route path="/RegisterPage" element={<RegisterPage />} />
           <Route path="/ForgotPassword" element={<ForgotPassword />} />
           <Route path="/Movies" element={<Movies />} />

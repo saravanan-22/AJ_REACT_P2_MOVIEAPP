@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import image from "./image/background.jpg"
+import { FaFortAwesome } from "react-icons/fa6";
 
 const LoginPage = () => {
   const [validated, setValidated] = useState(false);
@@ -32,11 +33,11 @@ const LoginPage = () => {
         email,
         password
       );
-      const user = credentials.user;
+      const user = credentials.user;  
       const uid = user.uid;
       setLoginUserUid(uid);
       alert("Login completed ");
-      navigate(`/profilePage`);
+      navigate(`/Movies`);
       localStorage.setItem("uid", uid);
     } catch (error) {
       alert(error.message);
@@ -60,8 +61,8 @@ const LoginPage = () => {
 
   const setDefaultValues = (e) => {
     e.preventDefault();
-    setEmail("rsaravanan0366@gmail.com");
-    setPassword("123456");
+    setEmail("saravanan@gmail.com");
+    setPassword("1234567");
     console.log("Default values set");
   };
 
@@ -151,6 +152,7 @@ const LoginPage = () => {
               Login
             </Button>
           </h6>
+          <Link to={"/"} ><Button className="ms-3 mb-2" variant="warning">Home <FaFortAwesome/></Button></Link>
         </Card>
       </section>
     </div>

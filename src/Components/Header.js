@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -21,6 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Header = () => {
+  const [photo, setPhoto] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -52,7 +53,9 @@ const Header = () => {
       >
         <Container fluid>
           <Navbar.Brand href="#">
-            <img src={image} alt="logo" style={{ width: "150px" }} />
+            <Link to={"/Movies"}>
+              <img src={image} alt="logo" style={{ width: "150px" }} />
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
           <Navbar.Offcanvas
@@ -123,6 +126,7 @@ const Header = () => {
                 </Link> */}
                 <Button variant="outline-light" onClick={handleLogout}>
                   <AccountCircleIcon className="header-btn" />
+
                   <span className="header-btn"> Profile</span>
                 </Button>
               </Nav>

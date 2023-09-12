@@ -6,6 +6,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Button } from "react-bootstrap";
+import "./Profile.css";
 
 const ProfilePage = () => {
   const [uid, setUid] = useState("");
@@ -18,6 +19,8 @@ const ProfilePage = () => {
   const [phoneNumberError, setPhoneNumberError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [update, setUpdate] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,8 +35,11 @@ const ProfilePage = () => {
       setEditedEmail(userData.email);
       setEditedPassword(userData.password);
       setEditedPhoneNumber(userData.phoneNumber);
+      setProfilePicture(userData.profilePhoto);
     });
   }, [uid]);
+
+  console.log(profilePicture);
 
   const isPasswordValid = (password) => {
     return password.length >= 6;
@@ -85,6 +91,7 @@ const ProfilePage = () => {
       email: editedEmail,
       password: editedPassword,
       phoneNumber: editedPhoneNumber,
+      profilePhoto: update,
     });
 
     setUserProfile((prevProfile) => ({
@@ -93,6 +100,7 @@ const ProfilePage = () => {
       email: editedEmail,
       password: editedPassword,
       phoneNumber: editedPhoneNumber,
+      profilePhoto: update,
     }));
 
     alert("Profile updated successfully");
@@ -102,7 +110,7 @@ const ProfilePage = () => {
     const userRef = ref(db, `users/${uid}`);
     remove(userRef)
       .then((res) => {
-        console.log("User data deleted successfully.");
+       alert("User data deleted successfully.");
 
         const user = auth.currentUser;
         user
@@ -118,6 +126,21 @@ const ProfilePage = () => {
       .catch((err) => console.error("Error deleting user data:", err));
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Convert the image data to Base64 encoding
+        const base64String = reader.result.split(",")[1];
+        setUpdate(base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  localStorage.setItem("userProfilePhoto", update)
   return (
     <div
       style={{
@@ -130,13 +153,39 @@ const ProfilePage = () => {
     >
       {userProfile ? (
         <div>
-          <Card style={{ width: "23rem", margin: "auto", marginTop: "1em" }}>
+          <Card style={{ width: "25rem", margin: "auto", marginTop: "1em" }}>
             <Card.Body>
               <Card.Title>
                 <h4 style={{ textAlign: "center" }}>User Details</h4>
+                <hr/>
               </Card.Title>
               <div>
                 <Form onSubmit={handleEditSubmit}>
+                  <img
+                    src={`data:image/jpeg;base64,${profilePicture}`}
+                    alt="Profile"
+                    className="profile-image-preview"
+                    style={{
+                      width: "150px",
+                      height: "120px",
+                      marginTop: "0.5em",
+                      marginBottom: "1em",
+                     
+                    }}
+                  />
+                  <label
+                    htmlFor="profileImageInput"
+                    className="custom-file-upload"
+                  >
+                    | Update Profile Picture | Click here!
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="profileImageInput"
+                    onChange={handleImageUpload}
+                    className="hidden-file-input"
+                  />
                   <Form.Group controlId="editedUsername">
                     <Form.Label
                       style={{
