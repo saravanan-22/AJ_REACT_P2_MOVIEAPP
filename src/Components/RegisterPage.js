@@ -9,6 +9,10 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { img_300, noPicture } from "../Context/Context";
 import image from "./image/background.jpg";
+import HomePage from "./HomePage";
+import Modal from "react-bootstrap/Modal";
+import { FaNotesMedical } from "react-icons/fa6";
+import "./HomePage.css"
 
 export const RegisterPage = () => {
   const [validated, setValidated] = useState(false);
@@ -21,7 +25,10 @@ export const RegisterPage = () => {
   const [uid, setUid] = useState("");
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -29,9 +36,8 @@ export const RegisterPage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-       
         const base64String = reader.result;
-        setProfilePhoto(base64String); 
+        setProfilePhoto(base64String);
       };
       reader.readAsDataURL(file);
     }
@@ -69,7 +75,10 @@ export const RegisterPage = () => {
         profilePhoto: profilePhoto,
       });
       alert("Account Created Successfully");
-      navigate("/LoginPage");
+      alert("Please! Close the registerPage and Login your new account")
+      handleClose()
+      navigate("/");
+      
     } catch (error) {
       alert(error.message);
     }
@@ -90,133 +99,140 @@ export const RegisterPage = () => {
     fetchMovies();
   }, []);
 
- 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${image})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-      className="register-page bg-black"
-    >
-      <section>
-        <Card className="register-card">
-          <Card.Body>
-            <Card.Title className="text-center">
-              Register Your Account Here : )
-            </Card.Title>
-            <hr />
-            <Card.Text>
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Group
-                  className="mb-1"
-                  controlId="validationCustomUsername"
-                >
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    required
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                  </Form.Control.Feedback>
-                </Form.Group>
+    <div>
+      <Button variant="primary" className="glow-on-hover" onClick={handleShow}>
+      <FaNotesMedical />   Create New Account
+      </Button>
 
-                <Form.Group className="mb-1" controlId="validationCustomEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder="Email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid email.
-                  </Form.Control.Feedback>
-                </Form.Group>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <section>
+            <Card className="register-card">
+              <Card.Body>
+                <Card.Title className="text-center">
+                  Register Your Account Here : )
+                </Card.Title>
+                <hr />
+                <Card.Text>
+                  <Form
+                    noValidate
+                    validated={validated}
+                    onSubmit={handleSubmit}
+                  >
+                    <Form.Group
+                      className="mb-1"
+                      controlId="validationCustomUsername"
+                    >
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Username"
+                        required
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please choose a username.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <Form.Group
-                  className="mb-1"
-                  controlId="validationCustomPassword"
-                >
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a password.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Group
+                      className="mb-1"
+                      controlId="validationCustomEmail"
+                    >
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="Email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid email.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <Form.Group
-                  className="mb-1"
-                  controlId="validationCustomConfirmPassword"
-                >
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Confirm Password"
-                    required
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please confirm your password.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Group
+                      className="mb-1"
+                      controlId="validationCustomPassword"
+                    >
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        required
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a password.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <Form.Group className="mb-1" controlId="validationCustomPhone">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Phone Number"
-                    required
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid phone number.
-                  </Form.Control.Feedback>
-                </Form.Group>
+                    <Form.Group
+                      className="mb-1"
+                      controlId="validationCustomConfirmPassword"
+                    >
+                      <Form.Label>Confirm Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Confirm Password"
+                        required
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please confirm your password.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <span className="mb-2">
-                  Add Profile Picture
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
-                </span>
+                    <Form.Group
+                      className="mb-1"
+                      controlId="validationCustomPhone"
+                    >
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Phone Number"
+                        required
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid phone number.
+                      </Form.Control.Feedback>
+                    </Form.Group>
 
-                <Button
-                  type="submit"
-                  variant="outline-success"
-                  className="register-button"
-                >
-                  Sign up
-                </Button>
-              </Form>
-            </Card.Text>
-            <hr />
-            <p className="p-0 m-0 text-center">
-              Have an account? <Link to="/LoginPage">Login</Link>
-            </p>
-          </Card.Body>
-        </Card>
-      </section>
+                    <span className="mb-2">
+                      Add Profile Picture
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                      />
+                    </span>
+
+                    <Button
+                      type="submit"
+                      variant="outline-success"
+                      className="register-button"
+                    >
+                      Sign up
+                    </Button>
+                  </Form>
+                </Card.Text>
+                <hr />
+              </Card.Body>
+            </Card>
+          </section>
+        </Modal.Header>
+      </Modal>
     </div>
   );
 };

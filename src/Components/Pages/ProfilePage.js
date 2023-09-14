@@ -39,8 +39,6 @@ const ProfilePage = () => {
     });
   }, [uid]);
 
-  console.log(profilePicture);
-
   const isPasswordValid = (password) => {
     return password.length >= 6;
   };
@@ -94,6 +92,8 @@ const ProfilePage = () => {
       profilePhoto: update,
     });
 
+
+
     setUserProfile((prevProfile) => ({
       ...prevProfile,
       username: editedUsername,
@@ -139,8 +139,8 @@ const ProfilePage = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  localStorage.setItem("userProfilePhoto", update)
+  // localStorage.setItem("userProfilePhoto", profilePicture)
+  // localStorage.setItem("movieAppUserName" ,editedUsername)
   return (
     <div
       style={{

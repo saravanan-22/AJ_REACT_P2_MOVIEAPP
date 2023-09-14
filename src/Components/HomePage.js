@@ -12,17 +12,14 @@ import {
   FaTelegram,
   FaAnglesRight,
   FaClapperboard,
-  FaNotesMedical
+  FaNotesMedical,
 } from "react-icons/fa6";
 import "./HomePage.css";
-
+import LoginPage from "./LoginPage";
+import { RegisterPage } from "./RegisterPage";
 
 const HomePage = () => {
   const navigate = useNavigate();
-
-  const handleLogIn = () => {
-    navigate("/LoginPage");
-  };
 
   return (
     <div
@@ -39,9 +36,7 @@ const HomePage = () => {
         <Container>
           <div className="d-flex justify-content-between align-items-center py-3">
             <h1>Movie App</h1>
-            <Button onClick={handleLogIn} variant="outline-warning">
-              <FaAnglesRight /> Login
-            </Button>
+            <LoginPage />
           </div>
         </Container>
       </header>
@@ -83,9 +78,7 @@ const HomePage = () => {
           </Link>
         </section>
         <section>
-          <Link to={"/RegisterPage"}>
-            <Button className="glow-on-hover"><FaNotesMedical/> Create New Account</Button>
-          </Link>
+          <RegisterPage />
         </section>
       </div>
 
