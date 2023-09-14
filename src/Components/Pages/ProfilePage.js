@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Button } from "react-bootstrap";
 import "./Profile.css";
+import { updateEmail, updatePassword } from "firebase/auth";
 
 const ProfilePage = () => {
   const [uid, setUid] = useState("");
@@ -52,7 +53,7 @@ const ProfilePage = () => {
     return emailRegex.test(email);
   };
 
-  const handleEditSubmit = (e) => {
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
 
     if (!isPasswordValid(editedPassword)) {
@@ -83,41 +84,54 @@ const ProfilePage = () => {
       setUsernameError(false);
     }
 
-    set(ref(db, `users/${uid}`), {
-      ...userProfile,
-      username: editedUsername,
-      email: editedEmail,
-      password: editedPassword,
-      phoneNumber: editedPhoneNumber,
-      profilePhoto: update,
-    });
+    try {
+      // Update the email in Firebase Authentication
+      const user = auth.currentUser;
+      await updateEmail(user, editedEmail);
 
+      // Update the password in Firebase Authentication
+      await updatePassword(user, editedPassword);
 
+      // Update the user's data in the Firestore database
+      set(ref(db, `users/${uid}`), {
+        ...userProfile,
+        username: editedUsername,
+        email: editedEmail,
+        password: editedPassword,
+        phoneNumber: editedPhoneNumber,
+        profilePhoto: update,
+      });
 
-    setUserProfile((prevProfile) => ({
-      ...prevProfile,
-      username: editedUsername,
-      email: editedEmail,
-      password: editedPassword,
-      phoneNumber: editedPhoneNumber,
-      profilePhoto: update,
-    }));
+      setUserProfile((prevProfile) => ({
+        ...prevProfile,
+        username: editedUsername,
+        email: editedEmail,
+        password: editedPassword,
+        phoneNumber: editedPhoneNumber,
+        profilePhoto: update,
+      }));
 
-    alert("Profile updated successfully");
+      alert("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating email and password:", error);
+      // Handle the error as needed (e.g., show an error message to the user)
+    }
   };
 
   const handleDeleteUser = () => {
     const userRef = ref(db, `users/${uid}`);
     remove(userRef)
       .then((res) => {
-       alert("User data deleted successfully.");
-
         const user = auth.currentUser;
         user
           .delete()
           .then(() => {
-            alert("User account deleted successfully.");
-            navigate("/");
+            if (window.confirm("Are you sure you want to delete this item?")) {
+              alert("User account deleted successfully.");
+              navigate("/");
+            } else {
+              console.log("Deletion canceled.");
+            }
           })
           .catch((error) => {
             console.error("Error deleting user account:", error);
@@ -157,7 +171,7 @@ const ProfilePage = () => {
             <Card.Body>
               <Card.Title>
                 <h4 style={{ textAlign: "center" }}>User Details</h4>
-                <hr/>
+                <hr />
               </Card.Title>
               <div>
                 <Form onSubmit={handleEditSubmit}>
@@ -170,7 +184,6 @@ const ProfilePage = () => {
                       height: "120px",
                       marginTop: "0.5em",
                       marginBottom: "1em",
-                     
                     }}
                   />
                   <label
