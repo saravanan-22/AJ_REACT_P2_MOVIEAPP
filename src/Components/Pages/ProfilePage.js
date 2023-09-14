@@ -55,43 +55,43 @@ const ProfilePage = () => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!isPasswordValid(editedPassword)) {
       setPasswordError(true);
       return;
     } else {
       setPasswordError(false);
     }
-
+  
     if (editedPhoneNumber.length < 10) {
       setPhoneNumberError(true);
       return;
     } else {
       setPhoneNumberError(false);
     }
-
+  
     if (!isEmailValid(editedEmail)) {
       setEmailError(true);
       return;
     } else {
       setEmailError(false);
     }
-
+  
     if (!isUsernameValid(editedUsername)) {
       setUsernameError(true);
       return;
     } else {
       setUsernameError(false);
     }
-
+  
     try {
       // Update the email in Firebase Authentication
       const user = auth.currentUser;
       await updateEmail(user, editedEmail);
-
+  
       // Update the password in Firebase Authentication
       await updatePassword(user, editedPassword);
-
+  
       // Update the user's data in the Firestore database
       set(ref(db, `users/${uid}`), {
         ...userProfile,
@@ -101,7 +101,7 @@ const ProfilePage = () => {
         phoneNumber: editedPhoneNumber,
         profilePhoto: update,
       });
-
+  
       setUserProfile((prevProfile) => ({
         ...prevProfile,
         username: editedUsername,
@@ -110,7 +110,7 @@ const ProfilePage = () => {
         phoneNumber: editedPhoneNumber,
         profilePhoto: update,
       }));
-
+  
       alert("Profile updated successfully");
     } catch (error) {
       console.error("Error updating email and password:", error);
@@ -122,16 +122,13 @@ const ProfilePage = () => {
     const userRef = ref(db, `users/${uid}`);
     remove(userRef)
       .then((res) => {
+       alert("User data deleted successfully.");
+
         const user = auth.currentUser;
         user
           .delete()
           .then(() => {
-            if (window.confirm("Are you sure you want to delete this item?")) {
-              alert("User account deleted successfully.");
-              navigate("/");
-            } else {
-              console.log("Deletion canceled.");
-            }
+            navigate("/");
           })
           .catch((error) => {
             console.error("Error deleting user account:", error);
@@ -171,7 +168,7 @@ const ProfilePage = () => {
             <Card.Body>
               <Card.Title>
                 <h4 style={{ textAlign: "center" }}>User Details</h4>
-                <hr />
+                <hr/>
               </Card.Title>
               <div>
                 <Form onSubmit={handleEditSubmit}>
@@ -184,6 +181,7 @@ const ProfilePage = () => {
                       height: "120px",
                       marginTop: "0.5em",
                       marginBottom: "1em",
+                     
                     }}
                   />
                   <label
